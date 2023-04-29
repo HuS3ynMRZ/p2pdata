@@ -35,6 +35,20 @@ Then run and check if the test is successfull:
 node test.js
 ```
 
+To start docker containers locally on your machine, run 
+
+```
+docker-compose up --build
+```
+
+or just run ./rundocker.sh
+
+If you want to test the code on your machine without docker, just run
+
+```
+npm run dev
+```
+
 If It's not working check the uri string used by your mongodb instance. He could be different from the default one.
 
 Now, you can start working !

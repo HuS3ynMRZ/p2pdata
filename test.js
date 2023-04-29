@@ -1,11 +1,12 @@
-const { MongoClient } = require('mongodb')
+import { MongoClient } from 'mongodb'
+import { MONGO_URL } from './config.js'
 
 /**
  * Sample code to test if your system is working
  */
 
 async function main () {
-  const uri = 'mongodb://127.0.0.1:27017'
+  const uri = MONGO_URL
   const client = new MongoClient(uri)
 
   try {

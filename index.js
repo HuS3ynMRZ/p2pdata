@@ -1,6 +1,7 @@
 import generateData from './generateFiles.js'
 import express from 'express'
 import mongoose from 'mongoose'
+import { MONGO_URL } from './config.js'
 
 const app = express()
 const port = 3000
@@ -9,10 +10,10 @@ let isGenerating = false
 
 app.get('/initialize', (req, res) => {
   if (isGenerating) {
-    res.send('Already started generating data!')
+    return res.send('Already started generating data!')
   }
   isGenerating = true
-  setInterval(generateData, 20000)
+  setInterval(generateData, 2000)
 
   res.send('Starting data generation...')
 })
@@ -22,10 +23,10 @@ app.get('/synchronize', (req, res) => {
 })
 
 console.log('launching server')
-const server = app.listen(port, async () => {
+const server = app.listen(port, '0.0.0.0', async () => {
   console.log(`Server listening at http://localhost:${port}`)
 
-  await mongoose.connect('mongodb://p2p-database-hostname:27017/p2p-db', {
+  await mongoose.connect(MONGO_URL, {
     useNewUrlParser: true
   })
 
@@ -39,5 +40,6 @@ const server = app.listen(port, async () => {
 
 server.on('close', () => {
   isGenerating = false
+  mongoose.connection.close();
   console.log('Closing up')
 })
