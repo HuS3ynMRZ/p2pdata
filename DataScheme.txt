@@ -1,0 +1,20 @@
+{
+	id: integer,
+	city: 	{
+		id_City: integer,
+		name: String,
+		coordinates : (float,float)
+		},
+	dateTime: 'YYYY-mm-dd	HH:MM:ss',
+	conditions: ["clear", "sunny", "overcast", "rain", "thunderstorm", "snow","fog"]
+	temperature: float,
+	humidity: float,
+	wind:	{
+		speed: integer,
+		direction: ["E","W","N","S","NE","NW","SE","SW"]
+		}
+}
+	
+
+
+Else to avoid a dedicatd class for the wind we can just have the attributes : windSpeed and windDirection. 
