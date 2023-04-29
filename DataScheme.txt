@@ -16,5 +16,4 @@
 }
 	
 
-
-Else to avoid a dedicatd class for the wind we can just have the attributes : windSpeed and windDirection. 
+To keep it simple and avoid the dedicated class for the wind we can just have the attributes : windSpeed and windDirection.  
