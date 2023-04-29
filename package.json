@@ -1,11 +1,14 @@
 {
   "name": "p2pdata",
   "version": "1.0.0",
+  "type": "module",
   "description": "BME Agile Network Service Development course Project",
   "main": "index.js",
   "scripts": {
+    "dev": "node index.js",
     "test": "node test.js",
-    "lint:fix": "eslint --fix ./*.js"
+    "lint:fix": "eslint --fix ./*.js",
+    "start-mongo": "mongod --bind_ip_all --dbpath=/data/db --fork --logpath=/var/log/mongodb/mongod.log && node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,10 @@
   },
   "homepage": "https://github.com/HuS3ynMRZ/p2pdata#readme",
   "dependencies": {
-    "mongodb": "^5.3.0"
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "mongodb": "^5.3.0",
+    "mongoose": "^7.1.0"
   },
   "devDependencies": {
     "eslint": "^8.38.0",
