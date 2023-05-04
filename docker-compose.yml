@@ -1,23 +1,73 @@
-version: '3'
+version: "3"
 services:
-  app:
-    build: .
-    container_name: p2p-server
-    hostname: p2p-server-hostname
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      - MONGO_URI=mongodb://db:27017/p2p-db
-  db:
+  mongo-setup:
+    container_name: mongo-setup
     image: mongo
-    container_name: p2p-database
-    hostname: p2p-database-hostname
+    restart: on-failure
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/bin/bash", "-c", "/scripts/rs-init.sh"] # Make sure this file exists (see below for the setup.sh)
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+      - mongo4
+    networks:
+      - mongo-network
+
+  mongo1:
+    hostname: mongo1
+    container_name: localmongo1
+    image: mongo
+    expose:
+      - 27017
+    networks:
+      - mongo-network
     ports:
-      - "27017:27017"
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.runCommand('ping').ok"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+      - 27017:27017
+    depends_on:
+      - mongo2
+      - mongo3
+      - mongo4
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+  mongo2:
+    hostname: mongo2
+    container_name: localmongo2
+    image: mongo
+    expose:
+      - 27017
+    networks:
+      - mongo-network
+    ports:
+      - 27018:27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+  mongo3:
+    hostname: mongo3
+    container_name: localmongo3
+    image: mongo
+    expose:
+      - 27017
+    networks:
+      - mongo-network
+    ports:
+      - 27019:27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+  mongo4:
+    hostname: mongo4
+    container_name: localmongo4
+    image: mongo
+    expose:
+      - 27017
+    networks:
+      - mongo-network
+    ports:
+      - 27020:27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+
+networks:
+  mongo-network:
+    driver: bridge
