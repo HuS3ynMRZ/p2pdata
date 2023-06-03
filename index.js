@@ -1,28 +1,33 @@
-import express from "express";
-import mongoose from "mongoose";
-import initializeEndpoint from "./endpoints/initialize.js";
-import { connectDatabase } from "./util/database.js";
-
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const port = 3000;
+const http = require("http");
+const path = require("path");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const { registerEndpoints } = require("./server/socketHandler");
+const { connectDatabase } = require("./server/connectDatabase");
+const { initializeEndpoint } = require("./server/initializeEndpoint");
+const io = new Server(server);
 
-let isGenerating = false;
+const port = process.env.PORT || 3000;
 
-app.get("/initialize", initializeEndpoint);
+app.use(express.static(path.join(__dirname, "client")));
 
-app.get("/synchronize", (req, res) => {
-  res.send("Synchronizing...");
+app.get("/", (req, res) => {
+  res.sendFile(__dirname.replace("server", "client") + "/index.html");
 });
 
-console.log("launching server");
-const server = app.listen(port, "0.0.0.0", async () => {
-  console.log(`Server listening at http://localhost:${port}`);
-
+(async () => {
   await connectDatabase();
+})();
+
+io.on("connection", (socket) => {
+  console.log("connected");
+  initializeEndpoint(socket);
+  registerEndpoints(socket);
 });
 
-server.on("close", () => {
-  isGenerating = false;
-  mongoose.connection.close();
-  console.log("Closing up");
+server.listen(port, () => {
+  console.log(`listening on *:${port}`);
 });
