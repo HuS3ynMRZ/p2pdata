@@ -1,0 +1,141 @@
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  background-color: #1a202c; /* Dark deep blue background */
+  color: #fff; /* Text color */
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Header styles */
+.header {
+  background-color: #4a5568;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Button styles */
+.button {
+  background-color: #718096;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* App container styles */
+.appContainer {
+  display: flex;
+  height: calc(
+    100vh - 80px
+  ); /* Adjust the height based on your header's height */
+}
+
+/* Add section styles */
+.add {
+  padding: 20px;
+}
+
+.add .hosts {
+  margin-bottom: 20px;
+}
+
+.add .hosts h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.addHost {
+  display: flex;
+  align-items: center;
+}
+
+.addHost input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2d3748; /* Dark gray background */
+  color: #fff;
+}
+
+.addHost .button {
+  margin-left: 10px;
+}
+
+/* Database content section styles */
+.dataList {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.dataList h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.dataList table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dataList th,
+.dataList td {
+  padding: 10px;
+  border: 1px solid #718096;
+}
+
+/* Known hosts section styles */
+#hostList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#hostList li {
+  margin-bottom: 5px;
+}
+
+/* Scrollbar styles */
+.dataList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dataList::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+}
+
+.dataList::-webkit-scrollbar-track {
+  background-color: #718096;
+}
+
+.newData {
+  color: greenyellow;
+}
+
+.foreign {
+  color: orange;
+}
+
+#sync {
+  transition: 0.3s all;
+}
+
+#sync.started {
+  color: greenyellow;
+}

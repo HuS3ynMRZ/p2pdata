@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>P2P database</h1>
+      <div id="clearDB" class="button">Clear Database</div>
+      <div id="sync" class="button">Synchronize</div>
+    </div>
+    <div class="appContainer">
+      <div class="add">
+        <div class="hosts">
+          <h2>Known hosts</h2>
+
+          <ul id="hostList"></ul>
+        </div>
+        <div class="addHost">
+          <input type="text" name="addHost" id="addHost" />
+          <div id="sendNewHost" class="button">Add Host</div>
+        </div>
+      </div>
+      <div class="dataList">
+        <h2>Database content</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>City Name</th>
+              <th>City ID</th>
+              <th>Wind Speed</th>
+              <th>Wind Direction</th>
+              <th>City Coordinates</th>
+              <th>Date & Time</th>
+              <th>State</th>
+              <th>Temperature</th>
+              <th>Humidity</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody id="dataTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
