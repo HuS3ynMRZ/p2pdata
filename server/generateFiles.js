@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const { WEB_HOST } = require("../config");
 
 const citySchema = new mongoose.Schema({
   idCity: { type: Number, required: true },
@@ -29,8 +30,7 @@ const dataSchema = new mongoose.Schema({
 
 const WeatherData = mongoose.model("Data", dataSchema);
 
-const generateData = async () => {
-  console.log("adding data!");
+const generateData = async (socket) => {
   const id = Math.floor(Math.random() * 1000);
   const idCity = Math.floor(Math.random() * 1000);
   const name = `City ${idCity}`;
@@ -52,7 +52,7 @@ const generateData = async () => {
     Math.floor(Math.random() * 8)
   ];
 
-  const data = new WeatherData({
+  const dataModel = {
     id,
     city: { idCity, name, coordinates },
     DateTime,
@@ -60,13 +60,19 @@ const generateData = async () => {
     temperature,
     humidity,
     wind: { speed, direction },
-  });
+  };
+
+  const data = new WeatherData(dataModel);
 
   try {
     await data.save();
-    console.log("data node added!");
+    socket.emit("data:add", {
+      data: dataModel,
+      source: WEB_HOST,
+      uuid: data._id,
+    });
   } catch (err) {
     console.log(err);
   }
 };
-export default generateData;
+module.exports = { generateData, WeatherData };
