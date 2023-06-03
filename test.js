@@ -1,5 +1,5 @@
-import { MongoClient } from 'mongodb'
-import { MONGO_URL } from './config.js'
+const { MongoClient } = require('mongodb')
+const { MONGO_URL } = require('./config.js')
 
 /**
  * Sample code to test if your system is working

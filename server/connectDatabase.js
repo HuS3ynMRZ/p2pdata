@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
-import { MONGO_URL } from "../config.js";
+const mongoose = require("mongoose");
+const { MONGO_URL } = require("../config.js");
 let db = null;
 
-export const connectDatabase = async () => {
+const connectDatabase = async () => {
   await mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -10,8 +10,8 @@ export const connectDatabase = async () => {
 
   db = mongoose.connection;
 
-  if(!db){
-    throw  new Error("Error connecting to database");
+  if (!db) {
+    throw new Error("Error connecting to database");
   }
 
   db.on("error", (err) => {
@@ -24,9 +24,14 @@ export const connectDatabase = async () => {
   });
 };
 
-export const getConnection = async () => {
+const getConnection = async () => {
   if (db !== null) {
     return db;
   }
   throw new Error("Database not connected");
+};
+
+module.exports = {
+  connectDatabase,
+  getConnection,
 };

@@ -1,14 +1,13 @@
 {
   "name": "p2pdata",
   "version": "1.0.0",
-  "type": "module",
   "description": "BME Agile Network Service Development course Project",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "test": "node test.js",
     "lint:fix": "eslint --fix ./*.js",
-    "start-mongo": "mongod --bind_ip_all --dbpath=/data/db --fork --logpath=/var/log/mongodb/mongod.log && node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,11 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.1",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
   }
 }
