@@ -1,14 +1,13 @@
 {
   "name": "p2pdata",
   "version": "1.0.0",
-  "type": "module",
   "description": "BME Agile Network Service Development course Project",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "test": "node test.js",
     "lint:fix": "eslint --fix ./*.js",
-    "start-mongo": "mongod --bind_ip_all --dbpath=/data/db --fork --logpath=/var/log/mongodb/mongod.log && node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
